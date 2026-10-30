@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Split It: split shared costs and settle up</title>
+  <meta name="description" content="Split rent, groceries, dinners and trips between friends, then see the fewest payments needed to settle up. Works offline and saves on your device.">
+  <meta name="theme-color" content="#F3F5F7" id="theme-color">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Split It">
+  <meta property="og:description" content="Split shared costs between friends and see the fewest payments to settle up.">
+  <meta property="og:url" content="https://lazarzec18.github.io/split-it/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232F9E44'/%3E%3Cpath d='M16 6a10 10 0 0 0 0 20z' fill='%23fff'/%3E%3Cpath d='M16 6a10 10 0 0 1 0 20z' fill='%23fff' fill-opacity='.45'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400..600&display=swap">
+  <script>
+    try {
+      var t = localStorage.getItem('split-it:theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#expense-form">Skip to the expense form</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M16 6a10 10 0 0 0 0 20z" fill="#fff"/><path d="M16 6a10 10 0 0 1 0 20z" fill="#fff" fill-opacity=".45"/></svg>
+      <div>
+        <h1 class="wordmark">Split It</h1>
+        <p class="tagline">Split shared costs with friends and see the fewest payments to settle up.</p>
+      </div>
+    </div>
+    <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch to dark theme">
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <nav class="groups" aria-label="Groups">
+      <div class="group-list" id="group-list"></div>
+      <div class="group-actions">
+        <button type="button" class="pill ghost" id="new-group-btn" aria-expanded="false" aria-controls="new-group-form">New group</button>
+        <button type="button" class="pill ghost" id="example-btn">Load example</button>
+      </div>
+      <form class="new-group" id="new-group-form" hidden>
+        <label for="new-group-name" class="sr-only">New group name</label>
+        <input id="new-group-name" type="text" maxlength="40" placeholder="Group name, like House" autocomplete="off">
+        <button type="submit" class="pill primary">Create group</button>
+        <button type="button" class="pill ghost" id="new-group-cancel">Cancel</button>
+      </form>
+    </nav>
+
+    <div class="tool" id="tool">
+      <div class="col col-main">
+        <section class="block" aria-labelledby="group-name-label" id="sec-group">
+          <div class="group-head">
+            <div class="field grow">
+              <label id="group-name-label" for="group-name">Group name</label>
+              <input id="group-name" class="title-input" type="text" maxlength="40" autocomplete="off">
+            </div>
+            <button type="button" class="pill ghost danger" id="delete-group-btn">Delete group</button>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="people-h" id="sec-people">
+          <h2 id="people-h">People</h2>
+          <ul class="people" id="people-list"></ul>
+          <form class="inline-form" id="person-form" novalidate>
+            <label for="person-name" class="sr-only">Person's name</label>
+            <input id="person-name" type="text" maxlength="30" placeholder="Name" autocomplete="off">
+            <button type="submit" class="pill primary">Add person</button>
+          </form>
+          <p class="error" id="people-error" role="alert"></p>
+        </section>
+
+        <section class="block" aria-labelledby="form-h" id="sec-form">
+          <h2 id="form-h">Add an expense</h2>
+          <p class="empty" id="form-empty" hidden>Add at least one person above, then log what was spent.</p>
+          <form id="expense-form" class="expense-form" novalidate>
+            <div class="field">
+              <label for="exp-desc">What was it for?</label>
+              <input id="exp-desc" type="text" maxlength="60" placeholder="Groceries, rent, dinner…" autocomplete="off">
+            </div>
+            <div class="row-2">
+              <div class="field grow">
+                <label for="exp-amount">Amount</label>
+                <input id="exp-amount" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="exp-currency">Currency</label>
+                <select id="exp-currency"></select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="exp-paid">Paid by</label>
+              <select id="exp-paid"></select>
+            </div>
+            <fieldset class="field">
+              <legend>Split between</legend>
+              <div class="chips" id="exp-participants"></div>
+            </fieldset>
+            <fieldset class="field">
+              <legend>How to split</legend>
+              <div class="segmented" id="exp-mode">
+                <label><input type="radio" name="mode" value="equal" checked><span>Equally</span></label>
+                <label><input type="radio" name="mode" value="exact"><span>Exact amounts</span></label>
+                <label><input type="radio" name="mode" value="shares"><span>By shares</span></label>
+              </div>
+            </fieldset>
+            <div class="split-detail" id="split-detail" aria-live="polite"></div>
+            <p class="error" id="form-error" role="alert"></p>
+            <div class="form-actions">
+              <button type="submit" class="pill primary" id="submit-btn">Add expense</button>
+              <button type="button" class="pill ghost" id="cancel-edit" hidden>Cancel editing</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="block" aria-labelledby="list-h" id="sec-list">
+          <h2 id="list-h">Expenses</h2>
+          <ul class="expenses" id="expense-list"></ul>
+        </section>
+      </div>
+
+      <div class="col col-side">
+        <section class="block balances-block" aria-labelledby="bal-h" id="sec-balances">
+          <div class="total">
+            <span class="total-label" id="total-label">Total spent</span>
+            <span class="total-num" id="total-num" aria-describedby="total-label">$0.00</span>
+          </div>
+          <div class="currency-tabs" id="currency-tabs" role="group" aria-label="Show balances in"></div>
+          <h2 id="bal-h">Balances</h2>
+          <ul class="bars" id="bars"></ul>
+        </section>
+
+        <section class="block" aria-labelledby="settle-h" id="sec-settle">
+          <div class="settle-head">
+            <h2 id="settle-h">Settle up</h2>
+            <button type="button" class="pill ghost" id="copy-btn">Copy summary</button>
+          </div>
+          <p class="hint" id="settle-hint"></p>
+          <ol class="transfers" id="transfers"></ol>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="footer">
+    Made by Lazar Zec. <a href="https://github.com/LAZARZEC18/split-it">Source on GitHub</a>
+  </footer>
+
+  <script src="logic.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
