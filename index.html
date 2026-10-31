@@ -1,161 +1,504 @@
 <!doctype html>
-<html lang="en-AU">
+<html lang="en-AU" data-app="split-it">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Split It: split shared costs and settle up</title>
-  <meta name="description" content="Split rent, groceries, dinners and trips between friends, then see the fewest payments needed to settle up. Works offline and saves on your device.">
-  <meta name="theme-color" content="#F3F5F7" id="theme-color">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Split It">
-  <meta property="og:description" content="Split shared costs between friends and see the fewest payments to settle up.">
-  <meta property="og:url" content="https://lazarzec18.github.io/split-it/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232F9E44'/%3E%3Cpath d='M16 6a10 10 0 0 0 0 20z' fill='%23fff'/%3E%3Cpath d='M16 6a10 10 0 0 1 0 20z' fill='%23fff' fill-opacity='.45'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400..600&display=swap">
-  <script>
-    try {
-      var t = localStorage.getItem('split-it:theme');
-      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-    } catch (e) {}
-  </script>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Split It — split shared costs and settle up</title>
+<meta name="description" content="Split trips, share houses and dinners with friends, down to the cent. Itemised receipts, balances, and the fewest payments to settle up.">
+<meta property="og:title" content="Split It">
+<meta property="og:description" content="Split trips, share houses and dinners with friends, down to the cent. Itemised receipts, balances, and the fewest payments to settle up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lz-split-it.pages.dev/">
+<meta property="og:image" content="https://lz-split-it.pages.dev/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="zl.css">
+<link rel="stylesheet" href="styles.css">
+<script src="zl.js"></script>
 </head>
-<body>
-  <a class="skip" href="#expense-form">Skip to the expense form</a>
+<body id="top">
+<div data-zl="nav"></div>
 
-  <header class="topbar">
-    <div class="brand">
-      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M16 6a10 10 0 0 0 0 20z" fill="#fff"/><path d="M16 6a10 10 0 0 1 0 20z" fill="#fff" fill-opacity=".45"/></svg>
-      <div>
-        <h1 class="wordmark">Split It</h1>
-        <p class="tagline">Split shared costs with friends and see the fewest payments to settle up.</p>
+<main>
+  <section class="zl-hero zl-wrap">
+    <div data-zl="icon"></div>
+    <h1>Split It</h1>
+    <p class="zl-tagline">Shared costs, settled in seconds.</p>
+    <p class="zl-sub">Log what everyone paid for a trip, a share house or a dinner. Split It works out who owes what, to the cent, and the fewest payments to clear it.</p>
+    <div class="zl-hero-ctas">
+      <a class="zl-btn zl-btn-primary zl-btn-lg" href="#app">Start splitting</a>
+      <a class="zl-btn zl-btn-secondary zl-btn-lg" href="#how">See how it works</a>
+    </div>
+    <div class="zl-hero-meta">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Free, no sign-up</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Saved on your device</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Exact to the cent</span>
+    </div>
+    <div class="sx-flow" aria-hidden="true">
+      <div class="sx-flow-card">
+        <span class="sx-flow-icon" style="--c:var(--cat-accommodation)"><svg viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-2.5A3.5 3.5 0 0 0 17.5 9H11v6"/><circle cx="7" cy="11.5" r="2"/></svg></span>
+        <span><b>Villa in Canggu</b><small>Maya paid</small></span>
+        <b class="num">$1,280.00</b>
+      </div>
+      <svg class="sx-flow-arrow" viewBox="0 0 40 12"><path d="M1 6h36M32 1.5L37 6l-5 4.5"/></svg>
+      <div class="sx-flow-card">
+        <span class="sx-flow-faces"><i style="--h:var(--p1)">M</i><i style="--h:var(--p2)">S</i><i style="--h:var(--p3)">A</i><i style="--h:var(--p4)">J</i></span>
+        <span><b>Split 4 ways</b><small>$320.00 each</small></span>
+      </div>
+      <svg class="sx-flow-arrow" viewBox="0 0 40 12"><path d="M1 6h36M32 1.5L37 6l-5 4.5"/></svg>
+      <div class="sx-flow-card is-done">
+        <span class="sx-flow-check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        <span><b>Sam pays Maya</b><small>Marked as paid</small></span>
+        <b class="num">$142.50</b>
       </div>
     </div>
-    <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch to dark theme">
-      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
-      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-    </button>
-  </header>
+  </section>
 
-  <main>
-    <nav class="groups" aria-label="Groups">
-      <div class="group-list" id="group-list"></div>
-      <div class="group-actions">
-        <button type="button" class="pill ghost" id="new-group-btn" aria-expanded="false" aria-controls="new-group-form">New group</button>
-        <button type="button" class="pill ghost" id="example-btn">Load example</button>
-      </div>
-      <form class="new-group" id="new-group-form" hidden>
-        <label for="new-group-name" class="sr-only">New group name</label>
-        <input id="new-group-name" type="text" maxlength="40" placeholder="Group name, like House" autocomplete="off">
-        <button type="submit" class="pill primary">Create group</button>
-        <button type="button" class="pill ghost" id="new-group-cancel">Cancel</button>
-      </form>
-    </nav>
-
-    <div class="tool" id="tool">
-      <div class="col col-main">
-        <section class="block" aria-labelledby="group-name-label" id="sec-group">
-          <div class="group-head">
-            <div class="field grow">
-              <label id="group-name-label" for="group-name">Group name</label>
-              <input id="group-name" class="title-input" type="text" maxlength="40" autocomplete="off">
-            </div>
-            <button type="button" class="pill ghost danger" id="delete-group-btn">Delete group</button>
+  <section class="zl-stage" id="app" data-nav="App">
+    <div class="zl-wrap">
+      <div class="zl-app" id="split-app">
+        <div class="zl-appbar">
+          <div class="zl-appbar-title">
+            <button type="button" class="sx-group-btn" id="group-btn" aria-haspopup="true" aria-expanded="false" aria-controls="group-menu" aria-label="Switch group">
+              <span class="sx-gbadge" id="group-badge" aria-hidden="true"></span>
+              <span class="sx-group-name" id="group-name">My group</span>
+              <svg class="sx-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+            </button>
+            <span class="zl-appbar-status" id="app-status" aria-live="polite"><span id="status-counts"></span><span class="sx-saved" id="status-saved"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Saved</span></span></span>
           </div>
-        </section>
-
-        <section class="block" aria-labelledby="people-h" id="sec-people">
-          <h2 id="people-h">People</h2>
-          <ul class="people" id="people-list"></ul>
-          <form class="inline-form" id="person-form" novalidate>
-            <label for="person-name" class="sr-only">Person's name</label>
-            <input id="person-name" type="text" maxlength="30" placeholder="Name" autocomplete="off">
-            <button type="submit" class="pill primary">Add person</button>
-          </form>
-          <p class="error" id="people-error" role="alert"></p>
-        </section>
-
-        <section class="block" aria-labelledby="form-h" id="sec-form">
-          <h2 id="form-h">Add an expense</h2>
-          <p class="empty" id="form-empty" hidden>Add at least one person above, then log what was spent.</p>
-          <form id="expense-form" class="expense-form" novalidate>
-            <div class="field">
-              <label for="exp-desc">What was it for?</label>
-              <input id="exp-desc" type="text" maxlength="60" placeholder="Groceries, rent, dinner…" autocomplete="off">
-            </div>
-            <div class="row-2">
-              <div class="field grow">
-                <label for="exp-amount">Amount</label>
-                <input id="exp-amount" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off">
-              </div>
-              <div class="field">
-                <label for="exp-currency">Currency</label>
-                <select id="exp-currency"></select>
-              </div>
-            </div>
-            <div class="field">
-              <label for="exp-paid">Paid by</label>
-              <select id="exp-paid"></select>
-            </div>
-            <fieldset class="field">
-              <legend>Split between</legend>
-              <div class="chips" id="exp-participants"></div>
-            </fieldset>
-            <fieldset class="field">
-              <legend>How to split</legend>
-              <div class="segmented" id="exp-mode">
-                <label><input type="radio" name="mode" value="equal" checked><span>Equally</span></label>
-                <label><input type="radio" name="mode" value="exact"><span>Exact amounts</span></label>
-                <label><input type="radio" name="mode" value="shares"><span>By shares</span></label>
-              </div>
-            </fieldset>
-            <div class="split-detail" id="split-detail" aria-live="polite"></div>
-            <p class="error" id="form-error" role="alert"></p>
-            <div class="form-actions">
-              <button type="submit" class="pill primary" id="submit-btn">Add expense</button>
-              <button type="button" class="pill ghost" id="cancel-edit" hidden>Cancel editing</button>
-            </div>
-          </form>
-        </section>
-
-        <section class="block" aria-labelledby="list-h" id="sec-list">
-          <h2 id="list-h">Expenses</h2>
-          <ul class="expenses" id="expense-list"></ul>
-        </section>
-      </div>
-
-      <div class="col col-side">
-        <section class="block balances-block" aria-labelledby="bal-h" id="sec-balances">
-          <div class="total">
-            <span class="total-label" id="total-label">Total spent</span>
-            <span class="total-num" id="total-num" aria-describedby="total-label">$0.00</span>
+          <div class="sx-appbar-actions">
+            <button type="button" class="zl-btn zl-btn-ghost zl-btn-sm" id="example-btn">Load example</button>
+            <button type="button" class="zl-btn zl-btn-secondary zl-btn-sm" id="share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7.5 7.5L12 3l4.5 4.5"/><path d="M5 12v6.5A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V12"/></svg>Share</button>
+            <button type="button" class="zl-btn zl-btn-primary zl-btn-sm" id="add-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add expense</button>
           </div>
-          <div class="currency-tabs" id="currency-tabs" role="group" aria-label="Show balances in"></div>
-          <h2 id="bal-h">Balances</h2>
-          <ul class="bars" id="bars"></ul>
-        </section>
-
-        <section class="block" aria-labelledby="settle-h" id="sec-settle">
-          <div class="settle-head">
-            <h2 id="settle-h">Settle up</h2>
-            <button type="button" class="pill ghost" id="copy-btn">Copy summary</button>
+          <div class="sx-menu" id="group-menu" hidden>
+            <p class="sx-menu-title">Groups</p>
+            <ul id="group-list" class="sx-menu-list"></ul>
+            <div class="sx-menu-foot">
+              <button type="button" class="zl-btn zl-btn-ghost zl-btn-sm" id="new-group-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New group</button>
+              <button type="button" class="zl-btn zl-btn-ghost zl-btn-sm" id="edit-group-btn">Group settings</button>
+            </div>
           </div>
-          <p class="hint" id="settle-hint"></p>
-          <ol class="transfers" id="transfers"></ol>
-        </section>
+        </div>
+
+        <div class="sx-toolbar" id="toolbar">
+          <div class="zl-seg" role="tablist" aria-label="Sections" id="tabs">
+            <button type="button" role="tab" id="tab-overview" aria-controls="view-overview" aria-selected="true" data-view="overview">Overview</button>
+            <button type="button" role="tab" id="tab-activity" aria-controls="view-activity" aria-selected="false" data-view="activity" tabindex="-1">Activity <span class="sx-count" id="activity-count"></span></button>
+            <button type="button" role="tab" id="tab-people" aria-controls="view-people" aria-selected="false" data-view="people" tabindex="-1">People <span class="sx-count" id="people-count"></span></button>
+          </div>
+          <div class="sx-cur" id="cur-switch" hidden>
+            <span class="zl-label" id="cur-label">Currency</span>
+            <div class="zl-seg" id="cur-seg" role="group" aria-labelledby="cur-label"></div>
+          </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="sx-view" id="view-overview" role="tabpanel" aria-labelledby="tab-overview">
+          <section class="sx-start" id="start-card" hidden aria-labelledby="start-title">
+            <div>
+              <h2 id="start-title">Get this group going</h2>
+              <ol class="sx-start-steps" id="start-steps"></ol>
+            </div>
+            <div class="sx-start-actions" id="start-actions"></div>
+          </section>
+          <div class="sx-grid">
+            <section class="sx-card sx-total" id="card-total" aria-labelledby="total-title">
+              <div class="sx-total-head">
+                <div>
+                  <h2 class="sx-card-title" id="total-title">Total spent</h2>
+                  <p class="sx-big num" id="total-num" aria-live="polite">$0.00</p>
+                  <p class="sx-meta" id="total-meta">No expenses yet</p>
+                </div>
+                <div class="sx-total-side" id="total-side"></div>
+              </div>
+              <div class="sx-split-line"></div>
+              <h3 class="sx-sub-title">Spent per person</h3>
+              <p class="zl-hint sx-sub-hint">Each person's share of the costs, against what they paid up front.</p>
+              <p class="sx-pp-key" aria-hidden="true"><span><i class="k-share"></i>Share</span><span><i class="k-paid"></i>Paid</span></p>
+              <ul class="sx-people-spend" id="per-person"></ul>
+            </section>
+
+            <section class="sx-card" id="card-donut" aria-labelledby="donut-title">
+              <h2 class="sx-card-title" id="donut-title">By category</h2>
+              <p class="zl-hint">Hover or tap a category to see its total.</p>
+              <div class="sx-donut-wrap">
+                <div class="sx-donut" id="donut"></div>
+                <ul class="sx-legend" id="legend"></ul>
+              </div>
+              <p class="sx-donut-note" id="donut-note" hidden></p>
+            </section>
+
+            <section class="sx-card" id="card-balances" aria-labelledby="bal-title">
+              <div class="sx-card-head">
+                <div>
+                  <h2 class="sx-card-title" id="bal-title">Balances</h2>
+                  <p class="zl-hint">Green gets money back. Red owes the group.</p>
+                </div>
+              </div>
+              <div class="sx-bars" id="bars" aria-live="polite"></div>
+            </section>
+
+            <section class="sx-card sx-settle" id="card-settle" aria-labelledby="settle-title">
+              <div class="sx-card-head">
+                <div>
+                  <h2 class="sx-card-title" id="settle-title">Settle up</h2>
+                  <p class="zl-hint" id="settle-sub">The fewest payments that clear every balance.</p>
+                </div>
+                <button type="button" class="zl-btn zl-btn-ghost zl-btn-sm" id="copy-summary-btn">Copy summary</button>
+              </div>
+              <ol class="sx-transfers" id="transfers" aria-live="polite"></ol>
+              <div class="sx-settled" id="settled" hidden>
+                <div class="sx-settled-mark" id="settled-mark"><svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="M15 27l7.5 7.5L37.5 19"/></svg></div>
+                <h3>All settled up</h3>
+                <p id="settled-text">Everyone is square.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <!-- Activity -->
+        <div class="sx-view" id="view-activity" role="tabpanel" aria-labelledby="tab-activity" hidden>
+          <div class="sx-filters" id="filters">
+            <div class="zl-field sx-f-search">
+              <label class="zl-label" for="f-q">Search</label>
+              <input class="zl-input" id="f-q" type="search" placeholder="Dinner, villa, Maya…" autocomplete="off">
+            </div>
+            <div class="zl-field">
+              <label class="zl-label" for="f-person">Person</label>
+              <select class="zl-select" id="f-person"><option value="">Everyone</option></select>
+            </div>
+            <div class="zl-field">
+              <label class="zl-label" for="f-cat">Category</label>
+              <select class="zl-select" id="f-cat"><option value="">All categories</option></select>
+            </div>
+          </div>
+          <div class="sx-results-bar">
+            <p class="sx-results" id="f-results" aria-live="polite"></p>
+            <button type="button" class="zl-btn zl-btn-ghost zl-btn-sm" id="f-clear" hidden>Clear filters</button>
+          </div>
+          <div id="activity-list" class="sx-activity"></div>
+        </div>
+
+        <!-- People -->
+        <div class="sx-view" id="view-people" role="tabpanel" aria-labelledby="tab-people" hidden>
+          <div class="sx-people-layout">
+            <section class="sx-card" id="people-panel" aria-labelledby="people-title">
+              <h2 class="sx-card-title" id="people-title">People</h2>
+              <p class="zl-hint">Everyone who shares costs in this group.</p>
+              <form class="sx-add-person" id="person-form" novalidate>
+                <div class="zl-field">
+                  <label class="zl-label" for="person-name">Name</label>
+                  <input class="zl-input" id="person-name" maxlength="40" autocomplete="off" placeholder="Maya" aria-describedby="person-error">
+                  <span class="zl-error" id="person-error" role="alert"></span>
+                </div>
+                <button type="submit" class="zl-btn zl-btn-primary">Add person</button>
+              </form>
+              <ul class="sx-person-list" id="people-list"></ul>
+            </section>
+            <aside class="sx-card sx-group-card" aria-labelledby="gc-title">
+              <h2 class="sx-card-title" id="gc-title">This group</h2>
+              <div class="sx-gc-row"><span class="sx-gbadge lg" id="gc-badge" aria-hidden="true"></span><div><b id="gc-name"></b><small id="gc-meta"></small></div></div>
+              <button type="button" class="zl-btn zl-btn-secondary" id="gc-edit">Rename or change icon</button>
+              <p class="zl-hint">Rename the group, choose its emoji or colour, set its default currency, or delete it.</p>
+            </aside>
+          </div>
+        </div>
+
+        <!-- Expense editor -->
+        <form class="sx-view sx-editor" id="view-editor" hidden novalidate aria-labelledby="editor-title">
+          <div class="sx-editor-head">
+            <button type="button" class="zl-btn zl-btn-ghost zl-btn-sm sx-back" id="editor-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Back</button>
+            <h2 id="editor-title">Add expense</h2>
+          </div>
+          <div class="sx-editor-grid">
+            <div class="sx-editor-col">
+              <div class="zl-field">
+                <label class="zl-label" for="e-desc">What was it for?</label>
+                <input class="zl-input" id="e-desc" maxlength="80" autocomplete="off" placeholder="Dinner, villa, groceries" aria-describedby="e-desc-err">
+                <span class="zl-error" id="e-desc-err"></span>
+              </div>
+              <div class="sx-row-2">
+                <div class="zl-field">
+                  <label class="zl-label" for="e-amount">Amount</label>
+                  <input class="zl-input num" id="e-amount" inputmode="decimal" autocomplete="off" placeholder="0.00" aria-describedby="e-amount-err">
+                  <span class="zl-error" id="e-amount-err"></span>
+                </div>
+                <div class="zl-field">
+                  <label class="zl-label" for="e-currency">Currency</label>
+                  <select class="zl-select" id="e-currency"></select>
+                </div>
+              </div>
+              <div class="sx-row-2">
+                <div class="zl-field">
+                  <label class="zl-label" for="e-date">Date</label>
+                  <input class="zl-input" id="e-date" type="date" aria-describedby="e-date-err">
+                  <span class="zl-error" id="e-date-err"></span>
+                </div>
+                <div class="zl-field">
+                  <label class="zl-label" for="e-paid">Paid by</label>
+                  <select class="zl-select" id="e-paid"></select>
+                </div>
+              </div>
+              <div class="zl-field">
+                <span class="zl-label" id="e-cat-label">Category</span>
+                <div class="sx-cats" id="e-cats" role="radiogroup" aria-labelledby="e-cat-label"></div>
+                <span class="zl-hint" id="e-cat-hint">Picked from the description. Tap to change.</span>
+              </div>
+              <div class="zl-field">
+                <label class="zl-label" for="e-notes">Notes <span class="sx-optional">Optional</span></label>
+                <textarea class="zl-textarea" id="e-notes" maxlength="500" rows="2" placeholder="Booking reference, who still has the receipt…"></textarea>
+              </div>
+            </div>
+            <div class="sx-editor-col sx-split-col">
+              <div class="zl-field">
+                <span class="zl-label" id="e-mode-label">How to split</span>
+                <div class="zl-seg sx-modes" id="e-mode" role="group" aria-labelledby="e-mode-label">
+                  <button type="button" data-mode="equal" aria-pressed="true">Equal</button>
+                  <button type="button" data-mode="exact" aria-pressed="false">Exact</button>
+                  <button type="button" data-mode="shares" aria-pressed="false">Shares</button>
+                  <button type="button" data-mode="items" aria-pressed="false">Itemised</button>
+                </div>
+                <span class="zl-hint" id="e-mode-hint"></span>
+              </div>
+              <div id="split-people" class="sx-split-people"></div>
+              <div id="split-items" class="sx-items" hidden>
+                <div class="sx-items-head"><span class="zl-label">Receipt items</span><span class="zl-hint">Type each item and its price, then tap who had it.</span></div>
+                <ul class="sx-item-list" id="item-list"></ul>
+                <button type="button" class="zl-btn zl-btn-secondary zl-btn-sm" id="add-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add item</button>
+                <div class="sx-row-2 sx-extras">
+                  <div class="zl-field">
+                    <label class="zl-label" for="e-tax">Tax %</label>
+                    <input class="zl-input num" id="e-tax" inputmode="decimal" placeholder="0" autocomplete="off" aria-describedby="e-tax-err">
+                    <span class="zl-error" id="e-tax-err"></span>
+                  </div>
+                  <div class="zl-field">
+                    <label class="zl-label" for="e-tip">Tip or service %</label>
+                    <input class="zl-input num" id="e-tip" inputmode="decimal" placeholder="0" autocomplete="off" aria-describedby="e-tip-err">
+                    <span class="zl-error" id="e-tip-err"></span>
+                  </div>
+                </div>
+                <dl class="sx-receipt" id="receipt-sum"></dl>
+                <div class="sx-each" id="items-each"></div>
+              </div>
+              <div class="sx-split-status" id="split-status" aria-live="polite"></div>
+            </div>
+          </div>
+          <div class="sx-editor-foot">
+            <button type="button" class="zl-btn zl-btn-danger" id="editor-delete" hidden>Delete expense</button>
+            <span class="zl-error sx-form-error" id="form-error" role="alert"></span>
+            <button type="button" class="zl-btn zl-btn-secondary" id="editor-cancel">Cancel</button>
+            <button type="submit" class="zl-btn zl-btn-primary" id="editor-save">Add expense</button>
+          </div>
+        </form>
       </div>
     </div>
-  </main>
+  </section>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <section class="zl-section alt" id="how" data-nav="How it works">
+    <div class="zl-wrap">
+      <div class="zl-section-head zl-reveal"><h2>Three steps. No maths.</h2><p>Balances and payments update the moment you add something.</p></div>
+      <div class="zl-steps zl-reveal">
+        <div class="zl-step">
+          <h3>Add your people</h3>
+          <p>Make a group for the trip or the house, then add everyone who shares costs.</p>
+          <div class="sx-step-vis sx-sv-faces" aria-hidden="true"><i style="--h:var(--p1)">M</i><i style="--h:var(--p2)">S</i><i style="--h:var(--p3)">A</i><i style="--h:var(--p4)">J</i><span>4 people</span></div>
+        </div>
+        <div class="zl-step">
+          <h3>Log what was paid</h3>
+          <p>Who paid, how much and who it was for. Split equally, by amount, by shares or line by line.</p>
+          <div class="sx-step-vis sx-sv-row" aria-hidden="true"><span class="sx-flow-icon" style="--c:var(--cat-food)"><svg viewBox="0 0 24 24"><path d="M7 3v7.5M4.5 3v4.8a2.5 2.5 0 0 0 5 0V3M7 10.5V21M17.5 21V3c-2 1.2-3 3.6-3 7 0 1.6.9 2.6 3 2.6"/></svg></span><span><b>Dinner at La Brisa</b><small>Ari paid, itemised</small></span><b class="num">$173.65</b></div>
+        </div>
+        <div class="zl-step">
+          <h3>Settle up</h3>
+          <p>See the fewest payments that clear every balance, and mark each one paid as money moves.</p>
+          <div class="sx-step-vis sx-sv-row" aria-hidden="true"><span class="sx-flow-check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Jess pays Maya</b><small>Marked as paid</small></span><b class="num">$212.40</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <footer class="footer">
-    Made by Lazar Zec. <a href="https://github.com/LAZARZEC18/split-it">Source on GitHub</a>
-  </footer>
+  <section class="zl-section" id="features" data-nav="Features">
+    <div class="zl-wrap">
+      <div class="zl-section-head zl-reveal"><h2>Built for real life.</h2><p>Trips, share houses and dinners all split differently. Split It handles each one properly.</p></div>
+      <div class="zl-bento zl-reveal">
+        <div class="zl-tile wide sx-tile-pay">
+          <div class="sx-tile-text">
+            <div class="zl-tile-big">3, not 7</div>
+            <h3>The fewest payments possible.</h3>
+            <p>Split It looks for people whose balances cancel out and settles them separately, so the plan always has the smallest number of transfers.</p>
+          </div>
+          <div class="sx-graphs" aria-hidden="true">
+            <figure>
+              <svg viewBox="0 0 160 140" class="sx-graph is-before">
+                <path d="M80 22L134 62M80 22L114 118M80 22L46 118M26 62L134 62M26 62L114 118M46 118L134 62M46 118L114 118"/>
+                <g><circle cx="80" cy="22" r="13"/><circle cx="134" cy="62" r="13"/><circle cx="114" cy="118" r="13"/><circle cx="46" cy="118" r="13"/><circle cx="26" cy="62" r="13"/></g>
+              </svg>
+              <figcaption>Paying back each debt: 7</figcaption>
+            </figure>
+            <figure>
+              <svg viewBox="0 0 160 140" class="sx-graph is-after">
+                <path d="M26 62L74 26M46 118L74 30M114 118L134 77"/>
+                <g><circle cx="80" cy="22" r="13"/><circle cx="134" cy="62" r="13"/><circle cx="114" cy="118" r="13"/><circle cx="46" cy="118" r="13"/><circle cx="26" cy="62" r="13"/></g>
+              </svg>
+              <figcaption>With Split It: 3</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="zl-tile">
+          <h3>Itemised receipts</h3>
+          <p>Tap who had each line. Tax and tip follow what each person ordered.</p>
+          <div class="zl-tile-visual sx-mini-receipt" aria-hidden="true">
+            <div><span>Snapper</span><span class="sx-mf"><i style="--h:var(--p1)">M</i><i style="--h:var(--p2)">S</i></span><b>38.00</b></div>
+            <div><span>Burger</span><span class="sx-mf"><i style="--h:var(--p3)">A</i></span><b>26.00</b></div>
+            <div><span>Cocktails</span><span class="sx-mf"><i style="--h:var(--p1)">M</i><i style="--h:var(--p2)">S</i><i style="--h:var(--p3)">A</i><i style="--h:var(--p4)">J</i></span><b>56.00</b></div>
+            <div class="sx-mr-total"><span>Tax and service 15%</span><b>+22.65</b></div>
+          </div>
+        </div>
+        <div class="zl-tile">
+          <h3>Exact to the cent</h3>
+          <p>Money is kept as whole cents, so every split adds up to the total.</p>
+          <div class="zl-tile-visual sx-cents" aria-hidden="true">
+            <span class="sx-cents-sum num">$10.00 <small>÷ 3</small></span>
+            <span class="sx-cents-row"><b class="num">$3.34</b><b class="num">$3.33</b><b class="num">$3.33</b></span>
+          </div>
+        </div>
+        <div class="zl-tile">
+          <h3>See where it went</h3>
+          <p>A live breakdown by category, from rent to the beach club.</p>
+          <div class="zl-tile-visual sx-mini-donut" aria-hidden="true">
+            <svg viewBox="0 0 120 120"><g fill="none" stroke-width="14" stroke-linecap="round" transform="rotate(-90 60 60)">
+              <circle cx="60" cy="60" r="44" stroke="var(--cat-accommodation)" stroke-dasharray="118 400" stroke-dashoffset="0"/>
+              <circle cx="60" cy="60" r="44" stroke="var(--cat-food)" stroke-dasharray="52 400" stroke-dashoffset="-136"/>
+              <circle cx="60" cy="60" r="44" stroke="var(--cat-activities)" stroke-dasharray="44 400" stroke-dashoffset="-206"/>
+              <circle cx="60" cy="60" r="44" stroke="var(--cat-transport)" stroke-dasharray="14 400" stroke-dashoffset="-268"/>
+            </g><text x="60" y="66" text-anchor="middle">4 types</text></svg>
+          </div>
+        </div>
+        <div class="zl-tile">
+          <h3>Share with a link</h3>
+          <p>The whole group is compressed into the link. No account and no server.</p>
+          <div class="zl-tile-visual sx-link-vis" aria-hidden="true">
+            <span class="sx-link-pill"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>lz-split-it.pages.dev/#share=d.7Vb…</span>
+            <span class="sx-link-note">Opens a preview before anything is imported</span>
+          </div>
+        </div>
+        <div class="zl-tile half">
+          <h3>Seven currencies</h3>
+          <p>Each expense keeps its own currency, and balances stay separate, so nothing is converted at a made-up rate.</p>
+          <div class="zl-tile-visual sx-curs" aria-hidden="true"><span>AUD</span><span>NZD</span><span>USD</span><span>EUR</span><span>GBP</span><span>IDR</span><span>JPY</span></div>
+        </div>
+        <div class="zl-tile half">
+          <h3>Export to a spreadsheet</h3>
+          <p>One row per expense and one column per person, ready for Excel, Numbers or Google Sheets.</p>
+          <div class="zl-tile-visual sx-csv" aria-hidden="true">
+            <div><b>Description</b><b>Amount</b><b>Maya</b><b>Sam</b></div>
+            <div><span>Villa in Canggu</span><span>1280.00</span><span>320.00</span><span>320.00</span></div>
+            <div><span>Airport transfer</span><span>48.00</span><span>12.00</span><span>12.00</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <script src="logic.js"></script>
-  <script src="app.js"></script>
+  <section class="zl-section alt" id="faq" data-nav="FAQ">
+    <div class="zl-wrap">
+      <div class="zl-section-head center zl-reveal"><h2>Questions</h2></div>
+      <div class="zl-faq zl-reveal">
+        <details><summary>Where is my data stored?</summary><div>In your browser's storage on this device. Nothing is sent to a server and there's no account. Clearing your browser data removes it, so export a CSV or keep a share link if you want a backup.</div></details>
+        <details><summary>How does the share link work?</summary><div>The group is compressed and written into the part of the link after the #, which browsers never send to a server. Whoever opens it sees a preview of the people, expenses and total, then chooses whether to import it as a new group. Their copy is separate from yours.</div></details>
+        <details><summary>How does an itemised receipt split tax and tip?</summary><div>Add each line from the bill and tap who had it. Shared lines are split evenly between the people on them. Tax and tip are worked out on the subtotal, then shared in proportion to what each person ordered, so someone who had a $15 noodle dish pays less service than someone who had the $38 snapper.</div></details>
+        <details><summary>Is it really the fewest payments?</summary><div>Yes, for groups with up to 16 people who have a balance. Split It finds every set of people whose balances cancel out and settles each set on its own, which is what makes the plan as short as it can be. Larger groups use a faster method that still never needs more payments than people minus one.</div></details>
+        <details><summary>What happens to leftover cents?</summary><div>When an amount doesn't divide evenly, the extra cents go one at a time to people in the order they were added. $10 between three people is $3.34, $3.33 and $3.33, so the shares always add up to the exact total.</div></details>
+        <details><summary>Can I mix currencies in one group?</summary><div>Yes. Each expense has its own currency, and balances are kept separately for each one. A currency switch appears above the totals as soon as a group uses more than one.</div></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-zl="footer"></div>
+
+<dialog class="zl-dialog" id="group-dialog" aria-labelledby="gd-title">
+  <form method="dialog" id="group-form" novalidate>
+    <div class="zl-dialog-head"><h2 id="gd-title">New group</h2><button type="button" class="zl-iconbtn sx-x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="zl-dialog-body">
+      <div class="sx-gd-preview"><span class="sx-gbadge xl" id="gd-badge" aria-hidden="true"></span></div>
+      <div class="zl-field">
+        <label class="zl-label" for="gd-name">Group name</label>
+        <input class="zl-input" id="gd-name" maxlength="40" autocomplete="off" placeholder="Bali trip, Share house, Friday dinners" aria-describedby="gd-name-err">
+        <span class="zl-error" id="gd-name-err"></span>
+      </div>
+      <div class="zl-field">
+        <span class="zl-label" id="gd-emoji-label">Emoji</span>
+        <div class="sx-emoji-grid" id="gd-emoji" role="radiogroup" aria-labelledby="gd-emoji-label"></div>
+      </div>
+      <div class="zl-field">
+        <span class="zl-label" id="gd-color-label">Colour</span>
+        <div class="sx-color-grid" id="gd-color" role="radiogroup" aria-labelledby="gd-color-label"></div>
+      </div>
+      <div class="zl-field">
+        <label class="zl-label" for="gd-currency">Default currency</label>
+        <select class="zl-select" id="gd-currency"></select>
+        <span class="zl-hint">New expenses start in this currency. You can change it per expense.</span>
+      </div>
+    </div>
+    <div class="zl-dialog-foot">
+      <button type="button" class="zl-btn zl-btn-danger sx-gd-delete" id="gd-delete" hidden>Delete group</button>
+      <button type="button" class="zl-btn zl-btn-secondary" data-close>Cancel</button>
+      <button type="submit" class="zl-btn zl-btn-primary" id="gd-save">Create group</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="zl-dialog sx-share-dialog" id="share-dialog" aria-labelledby="sd-title">
+  <form method="dialog">
+    <div class="zl-dialog-head"><h2 id="sd-title">Share and export</h2><button type="button" class="zl-iconbtn sx-x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="zl-dialog-body">
+      <section class="sx-share-sec">
+        <h3>Share group</h3>
+        <div class="zl-field">
+          <label class="zl-label" for="share-link">Share link</label>
+          <div class="sx-inline">
+            <input class="zl-input" id="share-link" readonly value="Preparing link…" aria-describedby="share-hint">
+            <button type="button" class="zl-btn zl-btn-primary" id="copy-link" disabled>Copy link</button>
+          </div>
+          <span class="zl-hint" id="share-hint">The group is packed into the link itself. Nothing is uploaded. Opening it shows a preview before anything is imported.</span>
+        </div>
+      </section>
+      <section class="sx-share-sec">
+        <h3>Summary for the group chat</h3>
+        <pre class="sx-summary" id="summary-pre" tabindex="0" aria-label="Plain-text summary"></pre>
+        <button type="button" class="zl-btn zl-btn-secondary" id="copy-summary">Copy summary</button>
+      </section>
+      <section class="sx-share-sec">
+        <h3>Spreadsheet</h3>
+        <p class="zl-hint">One row per expense and payment, with a column for each person's share.</p>
+        <button type="button" class="zl-btn zl-btn-secondary" id="export-csv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg>Export CSV</button>
+      </section>
+    </div>
+    <div class="zl-dialog-foot"><button type="button" class="zl-btn zl-btn-primary" data-close>Done</button></div>
+  </form>
+</dialog>
+
+<dialog class="zl-dialog" id="import-dialog" aria-labelledby="id-title">
+  <form method="dialog">
+    <div class="zl-dialog-head"><h2 id="id-title">Import shared group?</h2></div>
+    <div class="zl-dialog-body">
+      <div class="sx-import" id="import-preview"></div>
+      <p class="zl-hint">It's added as a new group on this device. Your existing groups aren't changed.</p>
+    </div>
+    <div class="zl-dialog-foot">
+      <button type="button" class="zl-btn zl-btn-secondary" id="import-cancel">Cancel</button>
+      <button type="button" class="zl-btn zl-btn-primary" id="import-ok">Import as new group</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="logic.js"></script>
+<script src="example.js"></script>
+<script src="charts.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
